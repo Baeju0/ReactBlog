@@ -18,6 +18,11 @@ function App() {
     글제목변경(newArray);
   }
 
+  function 글추가() {
+    var newArr = [...글제목];
+    newArr.unshift(입력값);
+    글제목변경(newArr);
+  }
   // ㄱㄴㄷ 순으로 정렬하기
   // function 정렬하기() {
   //   var newA = [...글제목];
@@ -29,6 +34,8 @@ function App() {
   let st = { fontSize: "25px" };
   let [따봉, 따봉변경] = useState(0);
   let [modal, modal변경] = useState(false);
+
+  let [입력값, 입력값변경] = useState('');
 
   // var 어레이 = [2, 3, 4];
 
@@ -45,35 +52,36 @@ function App() {
 
       {글제목.map(function (글, i) {
         return (
-          <div className="list">
+          <div className="list" key={i}>
             <h3
-              onClick={() => {
-                누른제목변경(i);
-              }}
-            >
+              onClick={() => { 누른제목변경(i); }}>
               {글}
-              <span
-                onClick={() => {
-                  따봉변경(따봉 + 1);
-                }}
-              >
-                👍
-              </span>
+
+              <span onClick={() => { 따봉변경(따봉 + 1); }}>👍</span>
               {따봉}
             </h3>
             <p>2월 17일 발행</p>
             <hr />
           </div>
         );
-      })}
+      })
+      }
 
-      <button
-        onClick={() => {
+      <div className="publish">
+        <input onChange={(e)=>{입력값변경(e.target.value)}}/>
+        <button onClick={글추가}>저장</button>
+      </div>
+
+      {/* <input onChange={(e)=>{ 입력값변경(e.target.value) }}/> 값 입력, 저장*/}
+
+      <button onClick={() => {
           modal변경(!modal);
         }}
       >
         모달버튼
       </button>
+      
+
       {modal == true ? (
         <Modal 글제목={글제목} 누른제목={누른제목}></Modal>
       ) : null}
