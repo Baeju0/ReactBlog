@@ -3,43 +3,50 @@ import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
-  let [글제목, 글제목변경] = useState([
-    "남자 코트 추천",
-    "많이 잤는데 또 졸려",
-    "배고프다 뭐먹지",
+  let [title, setTitle] = useState([
+    "밖에 비오는 중",
+    "배고픈 개발자",
+    "안녕하세요",
   ]); //array가 남음 [a,b] a는 입력한 값 드가고, b는 정정해주는 함수
 
-  let [누른제목, 누른제목변경] = useState(0);
+  let [pushTitle, setPushTitle] = useState(0);
 
-  // 버튼 누를 시 여자 코트 추천으로 바뀌는 기능
-  function 제목바꾸기() {
-    var newArray = [...글제목];
-    newArray[0] = "여자 코트 추천";
-    글제목변경(newArray);
+  // 버튼 누를 시 제목이 '대전 맛집'으로 바뀌는 기능
+  function changeTitle() {
+    var newArray = [...title];
+    newArray[0] = "대전 맛집";
+    setTitle(newArray);
   }
 
-  function 글추가() {
-    var newArr = [...글제목];
-    newArr.unshift(입력값);
-    글제목변경(newArr);
+  function addTitle() {
+    var newArr = [...title];
+    newArr.unshift(entry);
+    setTitle(newArr);
   }
   // ㄱㄴㄷ 순으로 정렬하기
-  // function 정렬하기() {
-  //   var newA = [...글제목];
+  // function range() {
+  //   var newA = [...title];
   //   newA.sort();
-  //   글제목변경(newA);
+  //   setTitle(newA);
   // }
 
-  let posts = "강남 꼬기 맛집";
+  // let posts = "맛집";
   let st = { fontSize: "25px" };
-  let [따봉, 따봉변경] = useState(0);
-  let [modal, modal변경] = useState(false);
+  let [like, setLike] = useState([0,0,0]);
+  const likeup = (i) => {
+    let like2 = [...like];
+    like2[i]++;
+    setLike(like2);
+  }
 
-  let [입력값, 입력값변경] = useState('');
 
-  // var 어레이 = [2, 3, 4];
+  let [modal, setModal] = useState(false);
 
-  // var 뉴어레이 = 어레이.map(function (a) {
+  let [entry, setEntry] = useState('');
+
+  // var array = [2, 3, 4];
+
+  // var newArray = array.map(function (a) {
   //   return a * 2;
   // });
 
@@ -48,17 +55,17 @@ function App() {
       <div className="black-nav">
         <div style={st}>개발 Blog</div>
       </div>
-      {/* <button onClick={제목바꾸기}>수정 버튼</button> */}
+      {/* <button onClick={changeTitle}>수정 버튼</button> */}
 
-      {글제목.map(function (글, i) {
+      {title.map(function (post, i) {
         return (
           <div className="list" key={i}>
             <h3
-              onClick={() => { 누른제목변경(i); }}>
-              {글}
+              onClick={() => { setPushTitle(i); }}>
+              {post}
 
-              <span onClick={() => { 따봉변경(따봉 + 1); }}>👍</span>
-              {따봉}
+              <span onClick={() => { likeup(i); }}>👍</span>
+              {like[i]}
             </h3>
             <p>2월 17일 발행</p>
             <hr />
@@ -68,22 +75,22 @@ function App() {
       }
 
       <div className="publish">
-        <input onChange={(e)=>{입력값변경(e.target.value)}}/>
-        <button onClick={글추가}>저장</button>
+        <input onChange={(e)=>{setEntry(e.target.value)}}/>
+        <button onClick={addTitle}>저장</button>
       </div>
 
-      {/* <input onChange={(e)=>{ 입력값변경(e.target.value) }}/> 값 입력, 저장*/}
+      {/* <input onChange={(e)=>{ setEntry(e.target.value) }}/> 값 입력, 저장*/}
 
       <button onClick={() => {
-          modal변경(!modal);
+          setModal(!modal);
         }}
       >
-        모달버튼
+        내용 보기
       </button>
       
 
       {modal == true ? (
-        <Modal 글제목={글제목} 누른제목={누른제목}></Modal>
+        <Modal title={title} pushTitle={pushTitle}></Modal>
       ) : null}
 
       {/* {modal ? <Modal></Modal> : null} */}
@@ -94,7 +101,7 @@ function App() {
 function Modal(props) {
   return (
     <div className="modal">
-      <h2>{props.글제목[props.누른제목]}</h2>
+      <h2>{props.title[props.pushTitle]}</h2>
       <p>날짜</p>
       <p>상세내용</p>
     </div>
