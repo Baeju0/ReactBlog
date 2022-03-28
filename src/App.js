@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
@@ -12,11 +11,11 @@ function App() {
   let [pushTitle, setPushTitle] = useState(0);
 
   // 버튼 누를 시 제목이 '대전 맛집'으로 바뀌는 기능
-  function changeTitle() {
-    var newArray = [...title];
-    newArray[0] = "대전 맛집";
-    setTitle(newArray);
-  }
+  // function changeTitle() {
+  //   var newArray = [...title];
+  //   newArray[0] = "대전 맛집";
+  //   setTitle(newArray);
+  // }
 
   function addTitle() {
     var newArr = [...title];
@@ -89,7 +88,7 @@ function App() {
       </button>
       
 
-      {modal == true ? (
+      {modal === true ? (
         <Modal title={title} pushTitle={pushTitle}></Modal>
       ) : null}
 
