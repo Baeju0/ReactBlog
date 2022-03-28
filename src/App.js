@@ -32,7 +32,7 @@ function App() {
 
   // let posts = "맛집";
   let st = { fontSize: "25px" };
-  let [like, setLike] = useState([0,0,0]);
+  let [like, setLike] = useState([0,0,0,0,0,0]);
   const likeup = (i) => {
     let like2 = [...like];
     like2[i]++;
